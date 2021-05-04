@@ -37,11 +37,11 @@ pipeline{
                 bat 'terraform apply -auto-approve -input=false tfplan' 
             }
         }
-        stage('Terraform Destroy'){
-            steps{
-                bat 'terraform destroy -auto-approve' 
-            }
-        }
+        // stage('Terraform Destroy'){
+        //     steps{
+        //         bat 'terraform destroy -auto-approve' 
+        //     }
+        // }
             
         }
     post {
