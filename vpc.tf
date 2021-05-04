@@ -42,15 +42,15 @@ resource "aws_internet_gateway" "igw" {
 
 # Create NAT Elastic IP
 
-resource "aws_eip" "natip" {  
-  vpc      = true
-}
+# resource "aws_eip" "natip" {  
+#   vpc      = true
+# }
 
 # Create NAT gateway
-resource "aws_nat_gateway" "natgw" {
-  allocation_id = aws_eip.natip.id
-  subnet_id     = element(aws_subnet.publicsubnets.*.id, 0)
-}
+# resource "aws_nat_gateway" "natgw" {
+#   allocation_id = aws_eip.natip.id
+#   subnet_id     = element(aws_subnet.publicsubnets.*.id, 0)
+# }
 
 # Create public Route Table
 resource "aws_route_table" "publicroutetable" {
@@ -96,12 +96,12 @@ resource "aws_route" "publicigwout" {
 
 # Private Internet RouetOut
 
-resource "aws_route" "privatenatgwout" {
-  route_table_id            = aws_route_table.privatedroutetable.id
-  destination_cidr_block    = "0.0.0.0/0"
-  gateway_id = aws_nat_gateway.natgw.id
-  depends_on = [aws_nat_gateway.natgw]
-}
+# resource "aws_route" "privatenatgwout" {
+#   route_table_id            = aws_route_table.privatedroutetable.id
+#   destination_cidr_block    = "0.0.0.0/0"
+#   gateway_id = aws_nat_gateway.natgw.id
+#   depends_on = [aws_nat_gateway.natgw]
+# }
 
 resource "aws_security_group" "public_sg" {
   vpc_id      = aws_vpc.example.id
