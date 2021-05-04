@@ -3,6 +3,11 @@ resource "aws_ecs_cluster" "wildfly_cluster" {
   capacity_providers = [ "FARGATE" ]
 }
 
+resource "aws_ecs_cluster" "wildfly_cluster2" {
+  name = "wildfly_cluster2"
+  capacity_providers = [ "FARGATE" ]
+}
+
 resource "aws_ecr_repository" "wildfly_ecr" {
   name                 = "wildfly_ecr"
 
