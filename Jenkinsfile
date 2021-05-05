@@ -8,8 +8,8 @@ pipeline {
     }
     
     environment {
-        // AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-        // AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
         TF_IN_AUTOMATION      = '1'
     }
 
@@ -19,11 +19,10 @@ pipeline {
                 script {
                     currentBuild.displayName = params.version
                 }
-                bat 'terraform init -input=false'
-                bat 'terraform workspace select %environment% '
-               // bat "terraform plan -input=false -out tfplan -var 'version=%version}%' --var-file=environments/%{params.environment}%.tfvars"
-                bat "terraform plan -input=false -out tfplan --var-file=%environment%.tfvars"
-                bat 'terraform show  -no-color tfplan > tfplan.txt'
+                sh 'terraform init -input=false'
+                sh 'terraform workspace select ${environment}'
+                sh "terraform plan -input=false -out tfplan -var 'version=${params.version}' --var-file=environments/${params.environment}.tfvars"
+                sh 'terraform show -no-color tfplan > tfplan.txt'
             }
         }
 
@@ -45,7 +44,7 @@ pipeline {
 
         stage('Apply') {
             steps {
-                bat "terraform apply -input=false tfplan"
+                sh "terraform apply -input=false tfplan"
             }
         }
     }
