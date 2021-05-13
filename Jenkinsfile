@@ -7,7 +7,7 @@ pipeline {
                     currentBuild.displayName = params.version
                 }
                 bat 'terraform init'
-                bat 'terraform plan -auto-approve'
+                bat 'terraform plan'
             }
         }
 
