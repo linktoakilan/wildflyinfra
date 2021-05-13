@@ -1,6 +1,6 @@
 resource "aws_ecs_cluster" "wildfly_cluster" {
-  name = "wildfly_cluster"
-  capacity_providers = [ "FARGATE" ]
+  name               = "wildfly_cluster"
+  capacity_providers = ["FARGATE"]
 }
 
 # resource "aws_ecs_cluster" "wildfly_cluster2" {
@@ -9,14 +9,14 @@ resource "aws_ecs_cluster" "wildfly_cluster" {
 # }
 
 resource "aws_ecr_repository" "wildfly_ecr" {
-  name                 = "wildfly_ecr"
+  name = "wildfly_ecr"
 
 }
 
 resource "aws_service_discovery_private_dns_namespace" "wildfly_privatedns" {
-  name        = "wildfly.local"
-  
-  vpc         = aws_vpc.example.id
+  name = "wildfly.local"
+
+  vpc = aws_vpc.example.id
 }
 
 
